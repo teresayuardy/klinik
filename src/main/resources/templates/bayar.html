@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Pembayaran - Klinik Tarumanagara</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/bayar">KLINIK TARUMANAGARA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" href="/bayar">HOME</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/bayar">LOGOUT</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Pembayaran</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Konfirmasi dan selesaikan transaksi Anda</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Pembayaran Section -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <h5 class="mb-3">Informasi Pasien & Dokter</h5>
+                        <p><strong>Pasien:</strong> <span th:text="${pasien.nama}"></span></p>
+                        <p><strong>Dokter:</strong> <span th:text="${dokter.nama}"></span></p>
+                        <p><strong>Spesialis:</strong> <span th:text="${dokter.tipe}"></span></p>
+
+                        <hr>
+                        <h5 class="mb-3">Keluhan</h5>
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item" th:each="keluhan : ${keluhanList}" th:text="${keluhan}"></li>
+                        </ul>
+
+                        <p><strong>Jumlah Keluhan:</strong> <span th:text="${jumlahKeluhan}"></span></p>
+                        <p><strong>Tarif per Keluhan:</strong> Rp <span th:text="${tarif}"></span></p>
+                        <p><strong>Total Biaya:</strong> Rp <span th:text="${totalBiaya}"></span></p>
+
+                        <hr>
+                        <form th:action="@{/transaksi/simpan}" method="post">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="exampleFormControlInput1"
+                                    placeholder="Resep akan dikirim ke email anda" name="email"
+                                    pattern="[a-zA-Z0-9._%+-]+@.+\.com$"
+                                    title="Masukkan alamat email dengan format @domain.com.">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Uang Bayar</label>
+                                <input type="number" class="form-control" name="uangBayar" required>
+                            </div>
+                            <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+                            <button type="submit" class="btn btn-success">Simpan Transaksi</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; ELLYA, CARLO, TERESA Object Based Programming 2025
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/scripts.js}"></script>
+</body>
+
+</html>

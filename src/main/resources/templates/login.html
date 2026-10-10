@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <title>Sign In Pasien</title>
+    <link rel="stylesheet" type="text/css" href="/css/login.css" />
+</head>
+
+<body>
+    <form action="/pvalidateLogin" method="post" class="form-group">
+        <h2>Sign In Pasien</h2>
+
+        <!-- ERROR MESSAGE -->
+        <div th:if="${param.error}" class="error-box">
+            USERNAME atau PASSWORD SALAH!
+        </div>
+
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" required />
+
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </form>
+</body>
+
+</html>

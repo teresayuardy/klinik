@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <title>Sign Up Pasien</title>
+    <link rel="stylesheet" type="text/css" href="/css/register.css" />
+</head>
+
+<body>
+    <form action="/pvalidateRegister" method="post" class="form-group">
+        <h2>Sign Up Pasien</h2>
+
+        <!-- ERROR MESSAGE -->
+        <div th:if="${param.error}" class="error-box">
+            USERNAME SUDAH DIGUNAKAN!
+        </div>
+
+        <!-- USERNAME -->
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" name="username" required />
+
+        <!-- PASSWORD -->
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" name="password" required />
+
+        <!-- NAMA -->
+        <label for="nama" class="form-label">Nama</label>
+        <input type="text" id="nama" name="nama" required />
+
+        <!-- UMUR -->
+        <label for="umur" class="form-label">Umur</label>
+        <input type="text" id="umur" name="umur" required pattern="[0-9]+" />
+
+        <!-- NOMOR TELEPON -->
+        <label for="telp" class="form-label">Nomor Telepon</label>
+        <input type="text" id="telp" name="telp" value="08"required pattern="^08[0-9]{8,10}$" maxlength="12" />
+
+        <!-- ALERGI -->
+        <label for="alergi" class="form-label">Alergi</label>
+        <input type="text" id="alergi" name="alergi" required />
+
+        <button type="submit" class="btn btn-primary">Buat Akun</button>
+
+    </form>
+</body>
+
+</html>

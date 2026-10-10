@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Klinik Tarumanagara</title>
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/dokterumum">KLINIK TARUMANAGARA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/dashboard">HOME</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">PILIH SPESIALISASI</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/dokterumum">Dokter Umum</a></li>
+                            <li><a class="dropdown-item" href="/doktergigi">Dokter Gigi</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">PROFILE</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="/informasiakun">Informasi Akun</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Informasi Akun</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Informasi Akun -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+
+                        <form action="/akun/update" method="post">
+
+                            <input type="hidden" name="idInsan" th:value="${pasien.idInsan}" />
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Nama</label>
+                                <input type="text" class="form-control" name="nama" th:value="${pasien.nama}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Umur</label>
+                                <input type="number" class="form-control" name="umur" th:value="${pasien.umur}"
+                                    required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Nomor Telepon</label>
+                                <input type="text" class="form-control" name="telp" th:value="${pasien.telp}" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Alergi</label>
+                                <input type="text" class="form-control" name="alergi" th:value="${pasien.alergi}">
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="submit" class="btn btn-warning w-45 fw-semibold">Update Data</button>
+                            </div>
+                        </form>
+                        <br>
+                        <form th:action="@{/akun/submit/{id}(id=${pasien.idInsan})}" method="post">
+                            <button type="submit" name="delete" class="btn btn-danger w-45 fw-semibold"
+                                onclick="return confirm('Yakin mau hapus akun?')">Delete</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Riwayat Transaksi -->
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        <h5 class="mb-3">Riwayat Transaksi</h5>
+                        <table class="table table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID Transaksi</th>
+                                    <th>Dokter</th>
+                                    <th>Keluhan</th>
+                                    <th>Total Biaya</th>
+                                    <th>Uang Bayar</th>
+                                    <th>Kembalian</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="transaksi : ${transaksiList}">
+                                    <td th:text="${transaksi.idTransaksi}"></td>
+                                    <td th:text="${transaksi.dokter.nama}"></td>
+                                    <td>
+                                        <ul>
+                                            <li th:each="keluhan : ${transaksi.keluhan}" th:text="${keluhan}"></li>
+                                        </ul>
+                                    </td>
+                                    <td>Rp <span th:text="${transaksi.totalBiaya}"></span></td>
+                                    <td>Rp <span th:text="${transaksi.uangBayar}"></span></td>
+                                    <td>Rp <span th:text="${transaksi.uangBayar - transaksi.totalBiaya}"></span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div th:if="${transaksiList.isEmpty()}" class="alert alert-info">
+                            Belum ada transaksi.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; ELLYA, CARLO, TERESA Object Based Programming 2025
+            </p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+</body>
+
+</html>

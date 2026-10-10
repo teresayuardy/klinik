@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Struk Pembayaran - Klinik Tarumanagara</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/dashboard">KLINIK TARUMANAGARA</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-dark py-4">
+        <div class="container text-center text-white">
+            <h1 class="fw-bolder">Struk Pembayaran</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Detail transaksi Anda</p>
+        </div>
+    </header>
+
+    <!-- Struk Section -->
+    <div class="container py-5">
+        <div class="card shadow-sm">
+            <div class="card-body p-4">
+                <h5 class="mb-3">Informasi Pasien & Dokter</h5>
+                <p><strong>Pasien:</strong> <span th:text="${transaksi.pasien.nama}"></span></p>
+                <p><strong>Dokter:</strong> <span th:text="${transaksi.dokter.nama}"></span></p>
+                <p><strong>Spesialis:</strong> <span th:text="${transaksi.dokter.tipe}"></span></p>
+
+                <hr>
+                <h5 class="mb-3">Keluhan</h5>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item" th:each="keluhan : ${transaksi.keluhan}" th:text="${keluhan}"></li>
+                </ul>
+
+                <p><strong>Jumlah Keluhan:</strong> <span th:text="${transaksi.keluhan.size()}"></span></p>
+                <p><strong>Tarif per Keluhan:</strong> Rp <span th:text="${transaksi.dokter.tarif}"></span></p>
+                <p><strong>Total Biaya:</strong> Rp <span th:text="${transaksi.totalBiaya}"></span></p>
+                <p><strong>Uang Bayar:</strong> Rp <span th:text="${transaksi.uangBayar}"></span></p>
+                <p><strong>Kembalian:</strong> Rp <span th:text="${kembalian}"></span></p>
+
+                <hr>
+                <div class="text-center">
+                    <a href="/dashboard" class="btn btn-primary">Kembali ke Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-4 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; ELLYA, CARLO, TERESA Object Based Programming 2025</p>
+        </div>
+    </footer>
+</body>
+</html>
